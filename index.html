@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The PoppyLoops | Handmade Crochet Keychains</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #db7c7c; /* Dusty Pink */
+            --primary-dark: #b95d5d;
+            --secondary-color: #5d4037; /* Warm Brown */
+            --accent-color: #f4d03f; /* Soft Yellow */
+            --bg-color: #fff9f0; /* Cream */
+            --white: #ffffff;
+            --card-shadow: 0 8px 20px rgba(93, 64, 55, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--secondary-color); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; cursor: pointer;}
+        .hidden { display: none !important; }
+
+        /* --- NAVIGATION --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); }
+        .logo span { color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center;}
+        
+        .icon-link { font-size: 1.3rem; color: var(--secondary-color); cursor: pointer; transition: var(--transition); position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; }
+        .icon-link:hover { background-color: #fff5f5; color: var(--primary-color); transform: translateY(-2px); }
+        .btn-nav-custom { padding: 0.5rem 1.2rem; background-color: var(--secondary-color); border-radius: 25px; color: var(--white) !important; font-weight: 700; cursor: pointer; border: none; font-size: 0.9rem; transition: var(--transition); }
+        .btn-nav-custom:hover { background: var(--primary-color); transform: translateY(-2px); }
+        .cart-count { position: absolute; top: 0px; right: 0px; background: var(--primary-color); color: var(--white); font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 900; border: 2px solid var(--white); }
+        .user-avatar-nav { width: 35px; height: 35px; background: var(--primary-color); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1rem; }
+
+        /* --- HERO --- */
+        #main-content { transition: opacity 0.3s; }
+        .hero { height: 80vh; background: linear-gradient(rgba(255, 249, 240, 0.8), rgba(255, 249, 240, 0.6)), url('https://images.unsplash.com/photo-1619234733043-25251cd75c49?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: 4rem; color: var(--secondary-color); text-shadow: 2px 2px 0px var(--white); margin-bottom: 0.5rem;}
+        .hero p { font-size: 1.4rem; margin-bottom: 2rem; max-width: 600px; font-weight: 600; }
+        .hero-btn { background: var(--primary-color); color: var(--white); padding: 1rem 3rem; font-size: 1.3rem; font-weight: 800; border-radius: 50px; border: none; cursor: pointer; transition: var(--transition); box-shadow: 0 10px 20px rgba(219, 124, 124, 0.4); }
+        .hero-btn:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+        /* --- FEATURES & PRODUCTS --- */
+        .features { display: flex; justify-content: center; gap: 3rem; padding: 3rem 5%; background: var(--white); margin-top: -50px; border-radius: 20px 20px 0 0; position: relative; z-index: 10; }
+        .feature-item { text-align: center; } .feature-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; } .feature-text { font-weight: 700; color: var(--primary-color); }
+        
+        .gallery { padding: 5rem 5%; text-align: center; }
+        .section-title { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 3rem; position: relative; display: inline-block;}
+        .section-title::after { content: ''; display: block; width: 60%; height: 5px; background: var(--accent-color); margin: 5px auto 0; border-radius: 10px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
+        .product-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); transition: var(--transition); }
+        .product-card:hover { transform: translateY(-10px); }
+        .card-img { height: 250px; width: 100%; object-fit: cover; background-color: #eee; cursor: pointer; }
+        .card-info { padding: 1.5rem; text-align: left; }
+        .card-tag { background: var(--accent-color); color: var(--secondary-color); padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: 800; }
+        .card-title { font-size: 1.4rem; margin: 10px 0 5px; color: var(--secondary-color); }
+        .card-price { font-size: 1.2rem; color: var(--primary-color); font-weight: 800; }
+        .btn-buy { display: block; width: 100%; text-align: center; margin-top: 15px; padding: 10px; background: var(--secondary-color); border: none; border-radius: 10px; font-weight: 700; color: var(--white); transition: 0.2s; cursor: pointer; }
+        .btn-buy:hover { background: var(--primary-color); }
+
+        /* --- REVIEWS --- */
+        .reviews-section { background: #fff5f5; padding: 5rem 5%; }
+        .reviews-header { text-align: center; margin-bottom: 3rem; }
+        .reviews-sub { color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .photo-reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .photo-review-card { background: var(--white); border-radius: 15px; padding: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transition: var(--transition); display: flex; flex-direction: column; }
+        .photo-review-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
+        .review-img { width: 100%; height: 220px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; background: #eee; }
+        .review-meta { margin-top: auto; }
+        .review-stars { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 8px; }
+        .review-body { font-size: 0.95rem; color: #555; font-style: italic; margin-bottom: 15px; line-height: 1.4; }
+        .review-user { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--secondary-color); font-size: 0.9rem; border-top: 1px solid #eee; padding-top: 10px; }
+        .review-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .text-reviews-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .text-review-card { background: var(--white); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--primary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .text-review-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .btn-write-review { background: var(--primary-color); color: var(--white); padding: 12px 30px; font-weight: 800; border-radius: 25px; cursor: pointer; transition: var(--transition); border: none; display: block; margin: 3rem auto 0; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(219, 124, 124, 0.4); }
+        .btn-write-review:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+        /* --- FAQ SECTION --- */
+        .faq-section { padding: 5rem 5%; background: var(--white); text-align: center; }
+        .faq-container { max-width: 700px; margin: 0 auto; text-align: left; }
+        .faq-item { border-bottom: 1px solid #eee; margin-bottom: 10px; }
+        .faq-question { background: var(--bg-color); padding: 20px; font-weight: 800; color: var(--secondary-color); cursor: pointer; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); }
+        .faq-question:hover { background: #fff0f0; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: var(--white); padding: 0 20px; }
+        .faq-answer p { padding: 15px 0; color: #555; font-size: 0.95rem; }
+        .faq-item.active .faq-answer { max-height: 200px; } 
+        .faq-item.active .faq-question { background: var(--primary-color); color: var(--white); }
+        .faq-cta { margin-top: 30px; }
+        .btn-ask { background: transparent; border: 2px solid var(--secondary-color); color: var(--secondary-color); padding: 10px 25px; border-radius: 25px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-ask:hover { background: var(--secondary-color); color: var(--white); }
+
+        /* --- FOOTER --- */
+        footer { background: var(--secondary-color); color: #e2e2e2; padding: 4rem 5% 2rem; margin-top: 2rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 800; }
+        .footer-logo { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 1rem; display: block; }
+        .footer-logo span { color: var(--white); }
+        .footer-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.8; }
+        .footer-links a { display: block; color: #bbb; margin-bottom: 0.8rem; transition: 0.3s; font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--accent-color); padding-left: 5px; }
+        .contact-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: #bbb; font-size: 0.95rem; }
+        .contact-list i { color: var(--primary-color); }
+        .social-icons { display: flex; gap: 15px; }
+        .social-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--white); }
+        .social-icon:hover { background: var(--primary-color); transform: translateY(-3px); color: var(--white); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; font-size: 0.9rem; opacity: 0.6; }
+
+        /* --- CART SIDEBAR & CONTROLS --- */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; opacity: 0; transition: opacity 0.3s; }
+        .cart-overlay.open { display: block; opacity: 1; }
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100vh; background: var(--white); z-index: 2000; box-shadow: -5px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: right 0.4s ease-in-out; }
+        .cart-sidebar.open { right: 0; }
+        .cart-header { padding: 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: var(--bg-color); }
+        .cart-items { flex: 1; padding: 1.5rem; overflow-y: auto; }
+        .cart-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+        .item-details { flex: 1; }
+        .item-name { font-weight: 800; font-size: 1rem; color: var(--secondary-color); display: block; }
+        .item-price { color: var(--primary-color); font-weight: 700; }
+        .cart-footer { padding: 2rem; border-top: 1px solid #eee; background: var(--bg-color); }
+        .total-row { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: 900; margin-bottom: 1rem; }
+        .checkout-btn { width: 100%; padding: 15px; background: var(--primary-color); color: var(--white); border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 800; cursor: pointer; }
+        .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .qty-btn { width: 25px; height: 25px; border-radius: 50%; border: 1px solid var(--secondary-color); background: white; color: var(--secondary-color); cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .qty-text { font-weight: bold; font-size: 0.9rem; min-width: 20px; text-align: center; }
+
+        /* --- MODAL (Shared Styles) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(93, 64, 55, 0.7); z-index: 2100; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(3px); }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: var(--bg-color); width: 90%; max-width: 500px; padding: 2.5rem; border-radius: 20px; position: relative; box-shadow: 0 20px 25px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; border: 4px solid var(--white); max-height: 90vh; overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
+        .modal-content::-webkit-scrollbar { display: none; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--primary-color);}
+        
+        .form-group { margin-bottom: 1rem; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 700; color: var(--secondary-color); font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e2e2e2; border-radius: 15px; font-size: 1rem; outline: none; background: var(--white); color: var(--secondary-color); }
+        .form-group input:focus { border-color: var(--primary-color); }
+        .btn-submit { width: 100%; background: var(--primary-color); color: var(--white); padding: 12px; border: none; border-radius: 25px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 15px rgba(219, 124, 124, 0.3); transition: var(--transition); }
+        .btn-submit:hover { transform: translateY(-2px); background: var(--primary-dark); }
+        
+        .file-upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 10px; cursor: pointer; transition: 0.2s; position: relative; background: var(--white); }
+        .file-upload-box:hover { border-color: var(--primary-color); background: #fff5f5; }
+        .file-upload-box input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        .image-preview { width: 100%; height: 150px; object-fit: contain; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #eee; }
+
+        .social-login { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .social-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--white); cursor: pointer; font-weight: 700; color: #555; display: flex; align-items: center; justify-content: center; transition: 0.2s; border: 2px solid #eee; font-size: 1.2rem; }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .auth-divider { display: flex; align-items: center; margin: 20px 0; color: #aaa; font-size: 0.8rem; font-weight: bold; }
+        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #ddd; }
+        .auth-divider span { padding: 0 10px; }
+        .auth-switch { text-align: center; margin-top: 15px; font-size: 0.9rem; }
+        .auth-switch a { color: var(--primary-color); font-weight: bold; text-decoration: underline; }
+
+        /* Payment & Profile */
+        #payment-page { min-height: 80vh; display: flex; align-items: center; justify-content: center; background: var(--bg-color); padding: 20px; }
+        .payment-card { background: var(--white); padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 500px; width: 100%; text-align: center; border-top: 5px solid var(--primary-color); }
+        .payment-amount { font-size: 2.5rem; color: var(--primary-color); font-weight: 900; margin: 20px 0; }
+        .payment-methods { display: flex; gap: 10px; justify-content: center; margin-bottom: 30px; }
+        .pm-icon { font-size: 2rem; color: #555; border: 1px solid #eee; padding: 10px; border-radius: 10px; }
+        .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;}
+        .profile-edit-btn { background: none; border: none; color: var(--primary-color); cursor: pointer; font-size: 1.2rem; }
+        .order-history-list { margin-top: 20px; max-height: 200px; overflow-y: auto; }
+        .order-history-item { background: var(--white); padding: 10px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .order-status { font-size: 0.8rem; padding: 2px 8px; border-radius: 5px; background: #d1fae5; color: #065f46; font-weight: bold; }
+        .btn-danger { background: #e74c3c; box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3); } .btn-danger:hover { background: #c0392b; }
+
+        footer { background: var(--secondary-color); color: var(--bg-color); padding: 3rem 5%; text-align: center; }
+        .form-group input[readonly] { background-color: #f0f0f0; border-color: transparent; color: #777; }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <nav>
+            <div class="logo">The Poppy<span>Loops</span></div>
+            <div class="nav-links">
+                <button id="nav-custom-btn" class="btn-nav-custom hidden" onclick="openModal('customModal')">Request Custom</button>
+                <div class="icon-link" id="auth-btn" onclick="openModal('loginModal')" title="Login / Sign Up"><i class="fas fa-user-circle"></i></div>
+                <div class="icon-link hidden" id="user-profile" onclick="openProfile()" title="My Profile"><div class="user-avatar-nav">U</div></div>
+                <div class="icon-link hidden" id="cart-btn" onclick="toggleCart()" title="Cart"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cart-count">0</span></div>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <h1>Small Stitches, Big Smiles.</h1>
+            <p>Handcrafted crochet keychains made with love and premium cotton yarn.</p>
+            <button class="hero-btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Collection</button>
+        </header>
+
+        <div class="features">
+            <div class="feature-item"><span class="feature-icon">🧶</span><span class="feature-text">100% Cotton Yarn</span></div>
+            <div class="feature-item"><span class="feature-icon">💖</span><span class="feature-text">Handmade with Love</span></div>
+            <div class="feature-item"><span class="feature-icon">🚚</span><span class="feature-text">Eco-Friendly Shipping</span></div>
+        </div>
+
+        <section class="gallery" id="shop">
+            <h2 class="section-title">Fresh Off The Hook</h2>
+            
+            <div class="product-grid" id="main-product-grid"></div>
+            
+            <div id="body-custom-box" class="hidden" style="margin-top: 3rem; background: #fff5f5; padding: 2rem; border-radius: 20px;">
+                <h3>Don't see what you want?</h3>
+                <p>I accept custom commissions! Tell me your favorite animal.</p>
+                <button class="hero-btn" style="margin-top: 1rem; font-size: 1rem;" onclick="openModal('customModal')">Request Custom Order</button>
+            </div>
+        </section>
+
+        <section class="reviews-section">
+            <div class="reviews-header"><h2 class="section-title" style="margin-bottom: 0.5rem;">Happy Customers</h2><p class="reviews-sub">Real photos from real people</p></div>
+            
+            <div class="photo-reviews-grid" id="photo-reviews-container">
+                <div class="photo-review-card"><img src="https://images.unsplash.com/photo-1596914565751-6e3e144a991f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="review-img"><div class="review-meta"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-body">"Look at this face! The quality is amazing and it arrived in 2 days."</p><div class="review-user"><div class="review-avatar">S</div>Sarah Jenkins</div></div></div>
+                <div class="photo-review-card"><img src="https://images.unsplash.com/photo-1632207191633-29a3026d1d91?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" class="review-img"><div class="review-meta"><div class="review-stars">⭐⭐⭐⭐</div><p class="review-body">"So cute on my backpack. The yarn is really soft."</p><div class="review-user"><div class="review-avatar">A</div>Alex R.</div></div></div>
+            </div>
+
+            <h3 style="color: var(--secondary-color); margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 5px; display: inline-block;">Community Feedback</h3>
+            
+            <div class="text-reviews-container" id="text-reviews-container">
+                <div class="text-review-card"><div class="text-review-header"><div class="review-stars">⭐⭐⭐⭐⭐</div><span style="font-size:0.8rem; color:#888;">2 days ago</span></div><p class="review-body">"I ordered a custom turtle and it came out better than I imagined."</p><div class="review-user"><div class="review-avatar">M</div>Mike T.</div></div>
+            </div>
+            
+            <button id="write-review-btn" class="btn-write-review hidden" onclick="openModal('reviewModal')">Write a Review</button>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                </div>
+        </section>
+
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">The Poppy<span>Loops</span></div>
+                    <p class="footer-desc">Handmade with love, stitched with care. Bringing joy one loop at a time.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a onclick="document.getElementById('shop').scrollIntoView()">Shop Collection</a>
+                        <a onclick="openModal('questionModal')">Ask a Question</a>
+                        <a onclick="openModal('loginModal')">My Account</a>
+                        <a href="#">Terms & Conditions</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Get In Touch</h4>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-envelope"></i> thepoppyloops@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +91 8795577267</li>
+                        <li><i class="fas fa-phone"></i> +91 8795577268</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Lucknow, India</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/thepoppyloops/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 The PoppyLoops. All rights reserved.</p></div>
+        </footer>
+    </div>
+
+    <section id="payment-page" class="hidden"><div class="payment-card"><h2 style="color: var(--secondary-color);">Secure Checkout</h2><p style="color: #666; margin-bottom: 20px;">Amount to Pay:</p><div class="payment-amount">₹<span id="pay-amount-display">0</span></div><div id="upi-section" style="text-align:center;"><p style="font-weight:bold; color:var(--secondary-color);">Scan to Pay</p><img id="upi-qr" src="" alt="QR Code" style="width: 200px; margin: 10px 0; border: 1px solid #eee; padding: 10px; border-radius: 10px;"><p style="margin: 10px 0;">OR</p><a id="upi-link-btn" href="#" class="btn-submit" style="background: #25D366; text-decoration: none; display: inline-block; margin-bottom: 15px; width: auto; padding: 10px 30px;">Open UPI App</a></div><form onsubmit="handleManualPayment(event)"><p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">After paying, click below to confirm:</p><button type="submit" class="btn-submit">I Have Paid</button><button type="button" class="btn-submit" style="background: #aaa; margin-top: 10px;" onclick="cancelPayment()">Cancel</button></form></div></section>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h2>Your Cart</h2><span class="close-modal" onclick="toggleCart()" style="position:static; font-size: 1.5rem; color: var(--secondary-color);">&times;</span></div><div class="cart-items" id="cartItemsContainer"></div><div class="cart-footer"><div class="total-row"><span>Total:</span><span id="cartTotal">₹0.00</span></div><button class="checkout-btn" onclick="checkout()">Checkout Now</button></div></div>
+
+    <div class="modal-overlay" id="productDetailModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('productDetailModal')">&times;</span><div style="text-align: center;"><img id="detail-img" src="" style="width: 100%; height: 250px; object-fit: cover; border-radius: 15px; margin-bottom: 20px;"><h2 id="detail-title" style="color: var(--secondary-color);">Product Name</h2><p id="detail-price" style="font-size: 1.5rem; color: var(--primary-color); font-weight: 900; margin: 10px 0;">₹000</p><p id="detail-desc" style="color: #666; margin-bottom: 20px;">Handmade with 100% cotton yarn.</p><div class="form-group" style="width: 50%; margin: 0 auto;"><label style="text-align: center;">Quantity</label><input type="number" id="detail-qty" value="1" min="1" style="text-align: center;"></div><button class="btn-submit" onclick="addToCartFromDetail()">Add to Cart</button></div></div></div>
+    
+    <div class="modal-overlay" id="profileModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('profileModal')">&times;</span><div class="profile-header"><h2 style="color: var(--primary-color);">My Profile</h2><button class="profile-edit-btn" onclick="toggleEditProfile()" title="Edit Details"><i class="fas fa-edit"></i></button></div><form id="profileForm" onsubmit="saveProfile(event)"><div class="form-group"><label>Name</label><input type="text" id="profile-name" readonly></div><div class="form-group"><label>Email</label><input type="email" id="profile-email" readonly></div><div class="form-group"><label>Mobile</label><input type="tel" id="profile-mobile" readonly></div><div class="form-group"><label>Address</label><textarea id="profile-address" rows="2" readonly></textarea></div><button type="submit" id="save-profile-btn" class="btn-submit hidden">Save Changes</button></form><h3 style="margin-top: 20px; color: var(--secondary-color); border-top: 2px solid #eee; padding-top: 10px;">Order History</h3><div class="order-history-list"><div class="order-history-item"><div><div style="font-weight:bold;">Order #1024</div><div style="font-size:0.8rem; color:#777;">Mr. Froggy x 1</div></div><span class="order-status">Delivered</span></div></div><button class="btn-submit btn-danger" onclick="logout()">Logout</button></div></div>
+    
+    <div class="modal-overlay" id="reviewModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('reviewModal')">&times;</span><div style="text-align: center; margin-bottom: 20px;"><h2 style="color: var(--primary-color);">Write a Review</h2><p>Show us your purchase!</p></div><form onsubmit="handleSubmit(event, 'reviewModal')" enctype="multipart/form-data"><div class="form-group"><label>Your Name</label><input type="text" name="name" required></div><div class="form-group"><label>Rating</label><select name="rating"><option>⭐⭐⭐⭐⭐ (5 Stars)</option><option>⭐⭐⭐⭐ (4 Stars)</option><option>⭐⭐⭐ (3 Stars)</option></select></div><div class="form-group"><label>Upload a Photo (Optional)</label><div class="file-upload-box"><i class="fas fa-camera" style="font-size: 2rem; color: #ccc;"></i><p style="font-size: 0.9rem; color: #999;">Click to upload photo</p><input type="file" name="review_image" accept="image/*" onchange="previewFile(this, 'preview-review')"><img id="preview-review" class="image-preview"></div></div><div class="form-group"><label>Your Review</label><textarea name="message" rows="3" placeholder="Tell us what you liked!"></textarea></div><button type="submit" class="btn-submit">Submit Review</button></form></div></div>
+    
+    <div class="modal-overlay" id="questionModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('questionModal')">&times;</span><div style="text-align: center; margin-bottom: 20px;"><h2 style="color: var(--primary-color);">Ask a Question</h2><p>We're here to help!</p></div><form onsubmit="handleSubmit(event, 'questionModal')"><div class="form-group"><label>Your Name</label><input type="text" required></div><div class="form-group"><label>Your Email</label><input type="email" required></div><div class="form-group"><label>Question</label><textarea rows="3" placeholder="What would you like to know?" required></textarea></div><button type="submit" class="btn-submit">Send Message</button></form></div></div>
+    <div class="modal-overlay" id="customModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('customModal')">&times;</span><div style="text-align: center; margin-bottom: 20px;"><h2 style="color: var(--primary-color);">Commission Request</h2><p>Have a reference photo? Upload it below!</p></div><form onsubmit="handleSubmit(event, 'customModal')" enctype="multipart/form-data"><div class="form-group"><label>What animal/shape?</label><input type="text" name="shape" placeholder="e.g. A purple octopus" required></div><div class="form-group"><label>Quantity</label><input type="number" name="quantity" min="1" value="1" required></div><div class="form-group"><label>Preferred Colors</label><input type="text" name="colors" placeholder="Pastel pink and white"></div><div class="form-group"><label>Reference Image (Optional)</label><div class="file-upload-box"><i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #ccc;"></i><p style="font-size: 0.9rem; color: #999;">Click to upload reference image</p><input type="file" name="reference_image" accept="image/*" onchange="previewFile(this, 'preview-custom')"><img id="preview-custom" class="image-preview"></div></div><div style="background: #fff5f5; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px dashed var(--primary-color); display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: bold; font-size: 0.9rem; color: var(--secondary-color);">Custom Design Fee:</span><span style="font-weight: 900; color: var(--primary-color); font-size: 1.2rem;">₹100</span></div><div class="form-group"><label>Contact Email</label><input type="email" name="email" placeholder="you@email.com" required></div><button type="submit" class="btn-submit">Send Request & Pay</button></form></div></div>
+    <div class="modal-overlay" id="loginModal"><div class="modal-content" style="max-width: 400px;"><span class="close-modal" onclick="closeModal('loginModal')">&times;</span><div style="text-align: center; margin-bottom: 20px;"><h2 style="color: var(--primary-color);">Welcome Back!</h2><p>Login to your account</p></div><form onsubmit="handleSubmit(event, 'loginModal')"><div class="form-group"><label>Gmail / Email</label><input type="email" name="email" required></div><div class="form-group"><label>Password</label><input type="password" required></div><button type="submit" class="btn-submit">Login</button></form><div class="auth-divider"><span>OR</span></div><div class="social-login"><div class="social-btn fb"><i class="fab fa-facebook-f"></i></div><div class="social-btn google"><i class="fab fa-google"></i></div></div><div class="auth-switch">Don't have an account? <a onclick="switchToSignup()">Sign Up</a></div></div></div>
+    <div class="modal-overlay" id="signupModal"><div class="modal-content" style="max-width: 400px;"><span class="close-modal" onclick="closeModal('signupModal')">&times;</span><div style="text-align: center; margin-bottom: 20px;"><h2 style="color: var(--primary-color);">Create Account</h2><p>Join our crochet community</p></div><form onsubmit="handleSubmit(event, 'signupModal')"><div class="form-group"><label>Name</label><input type="text" name="name" placeholder="Your full name" required></div><div class="form-group"><label>Gmail</label><input type="email" name="email" placeholder="example@gmail.com" required></div><div class="form-group"><label>Mobile</label><input type="tel" name="mobile" placeholder="123-456-7890" required></div><div class="form-group"><label>Password</label><input type="password" placeholder="******" required></div><div class="form-group"><label>Address</label><textarea name="address" rows="2" placeholder="Your shipping address"></textarea></div><button type="submit" class="btn-submit">Sign Up</button></form><div class="auth-divider"><span>OR</span></div><div class="social-login"><div class="social-btn fb"><i class="fab fa-facebook-f"></i></div><div class="social-btn google"><i class="fab fa-google"></i></div></div><div class="auth-switch">Already have an account? <a onclick="switchToLogin()">Login</a></div></div></div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); document.getElementById('cartOverlay').classList.toggle('open'); }
+        function addToCart(name, price, image, qty) {
+            const cartBtn = document.getElementById('cart-btn');
+            if(cartBtn.classList.contains('hidden')) { alert("Please Login first to add items to your cart!"); openModal('loginModal'); return; }
+            const existingItem = cart.find(item => item.name === name);
+            if(existingItem) { existingItem.quantity += parseInt(qty); } else { cart.push({ name, price, image, quantity: parseInt(qty), id: Date.now() }); }
+            saveCart(); renderCart();
+            const sidebar = document.getElementById('cartSidebar'); if(!sidebar.classList.contains('open')) toggleCart();
+        }
+        function changeQuantity(id, change) { const itemIndex = cart.findIndex(item => item.id === id); if (itemIndex > -1) { cart[itemIndex].quantity += change; if (cart[itemIndex].quantity <= 0) { cart.splice(itemIndex, 1); } saveCart(); renderCart(); } }
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
+        function updateCartCount() { document.getElementById('cart-count').innerText = cart.length; }
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer'); const totalElement = document.getElementById('cartTotal'); container.innerHTML = ''; let totalPrice = 0;
+            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;margin-top:2rem;">Your cart is empty.</p>'; } else {
+                cart.forEach(item => { totalPrice += item.price * item.quantity; container.innerHTML += `<div class="cart-item"><img src="${item.image}"><div class="item-details"><span class="item-name">${item.name}</span><span class="item-price">₹${item.price}</span><div class="qty-controls"><button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button><span class="qty-text">${item.quantity}</span><button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button></div></div></div>`; });
+            }
+            totalElement.innerText = '₹' + totalPrice.toFixed(2); updateCartCount();
+        }
+        function checkout() { if(cart.length === 0) { alert("Your cart is empty!"); return; } showPaymentPage(parseFloat(document.getElementById('cartTotal').innerText.replace('₹', ''))); }
+
+        /* Detail Modal */
+        let currentDetailProduct = {};
+        function openProductDetail(name, price, image, desc) { 
+            currentDetailProduct = { name, price, image }; 
+            document.getElementById('detail-img').src = image; 
+            document.getElementById('detail-title').innerText = name; 
+            document.getElementById('detail-price').innerText = '₹' + price; 
+            document.getElementById('detail-desc').innerText = desc || "Handmade with 100% cotton yarn."; 
+            document.getElementById('detail-qty').value = 1; 
+            openModal('productDetailModal'); 
+        }
+        function addToCartFromDetail() { const qty = document.getElementById('detail-qty').value; addToCart(currentDetailProduct.name, currentDetailProduct.price, currentDetailProduct.image, qty); closeModal('productDetailModal'); }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        window.onclick = function(event) { if (event.target.classList.contains('modal-overlay')) { event.target.classList.remove('active'); } }
+        function switchToSignup() { closeModal('loginModal'); setTimeout(() => openModal('signupModal'), 300); }
+        function switchToLogin() { closeModal('signupModal'); setTimeout(() => openModal('loginModal'), 300); }
+        function previewFile(input, previewId) { const file = input.files[0]; if (file) { const reader = new FileReader(); reader.onload = function(e) { document.getElementById(previewId).src = e.target.result; document.getElementById(previewId).style.display = 'block'; }; reader.readAsDataURL(file); } }
+
+        function logout() { if(confirm("Logout?")) { document.getElementById('auth-btn').classList.remove('hidden'); document.getElementById('user-profile').classList.add('hidden'); document.getElementById('cart-btn').classList.add('hidden'); document.getElementById('nav-custom-btn').classList.add('hidden'); document.getElementById('body-custom-box').classList.add('hidden'); document.getElementById('write-review-btn').classList.add('hidden'); closeModal('profileModal'); } }
+        function openProfile() { const user = JSON.parse(localStorage.getItem('currentUser')) || { name: 'Guest' }; document.getElementById('profile-name').value = user.name; document.getElementById('profile-email').value = user.email; document.getElementById('profile-mobile').value = user.mobile; document.getElementById('profile-address').value = user.address; document.querySelectorAll('#profileForm input, #profileForm textarea').forEach(el => el.setAttribute('readonly', true)); document.getElementById('save-profile-btn').classList.add('hidden'); openModal('profileModal'); }
+        function toggleEditProfile() { const inputs = document.querySelectorAll('#profileForm input, #profileForm textarea'); const isReadonly = inputs[0].hasAttribute('readonly'); if(isReadonly) { inputs.forEach(el => el.removeAttribute('readonly')); document.getElementById('save-profile-btn').classList.remove('hidden'); } else { inputs.forEach(el => el.setAttribute('readonly', true)); document.getElementById('save-profile-btn').classList.add('hidden'); } }
+        function saveProfile(e) { e.preventDefault(); const user = { name: document.getElementById('profile-name').value, email: document.getElementById('profile-email').value, mobile: document.getElementById('profile-mobile').value, address: document.getElementById('profile-address').value }; localStorage.setItem('currentUser', JSON.stringify(user)); alert("Updated!"); toggleEditProfile(); }
+
+        /* FAQ Logic */
+        const faqs = document.querySelectorAll('.faq-question');
+        faqs.forEach(faq => { faq.addEventListener('click', () => { faq.parentElement.classList.toggle('active'); }); });
+
+        /* Payment Logic */
+        function showPaymentPage(amount) {
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('payment-page').classList.remove('hidden');
+            
+            const finalAmount = amount || 100;
+            document.getElementById('pay-amount-display').innerText = finalAmount;
+            
+            // UPDATED: Use your branding for UPI
+            const upiID = "thepoppyloops@upi";
+            const upiLink = `upi://pay?pa=${upiID}&pn=ThePoppyLoops&am=${finalAmount}&cu=INR`;
+            
+            document.getElementById('upi-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('upi-link-btn').href = upiLink;
+            
+            window.scrollTo(0,0);
+        }
+
+        function cancelPayment() { document.getElementById('payment-page').classList.add('hidden'); document.getElementById('main-content').classList.remove('hidden'); }
+        async function handleManualPayment(e) { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); const txt = btn.innerText; btn.innerText="Verifying..."; await new Promise(r=>setTimeout(r,1500)); alert("Payment Recorded! We will process your order."); cancelPayment(); e.target.reset(); btn.innerText=txt; }
+
+        /* Form Submits */
+        async function handleSubmit(e, modalId) {
+            e.preventDefault(); const form = e.target; const btn = form.querySelector('button[type="submit"]'); const txt = btn.innerText; btn.innerText = "Processing..."; btn.disabled = true;
+            await new Promise(r => setTimeout(r, 1000));
+
+            if(modalId === 'reviewModal') {
+                const name = form.name.value; const rating = form.rating.value.split(' ')[0]; const text = form.message.value; const firstChar = name.charAt(0).toUpperCase();
+                const previewImg = document.getElementById('preview-review');
+                const hasImage = (previewImg && previewImg.style.display !== 'none' && previewImg.src);
+                if (hasImage) { const newPhotoCard = `<div class="photo-review-card"><img src="${previewImg.src}" class="review-img"><div class="review-meta"><div class="review-stars">${rating}</div><p class="review-body">"${text}"</p><div class="review-user"><div class="review-avatar">${firstChar}</div>${name}</div></div></div>`; document.getElementById('photo-reviews-container').insertAdjacentHTML('afterbegin', newPhotoCard); } 
+                else { const newTextCard = `<div class="text-review-card"><div class="text-review-header"><div class="review-stars">${rating}</div><span style="font-size:0.8rem; color:#888;">Just now</span></div><p class="review-body">"${text}"</p><div class="review-user"><div class="review-avatar">${firstChar}</div>${name}</div></div>`; document.getElementById('text-reviews-container').insertAdjacentHTML('afterbegin', newTextCard); }
+                alert("Review Posted!"); closeModal(modalId); form.reset(); if(previewImg) previewImg.style.display='none'; btn.innerText = txt; btn.disabled = false; return;
+            }
+
+            if(modalId === 'customModal') { closeModal(modalId); btn.innerText = txt; btn.disabled = false; showPaymentPage(100); return; }
+            
+            // UPDATED QUESTION LOGIC FOR ADMIN
+            if(modalId === 'questionModal') { 
+                const questions = JSON.parse(localStorage.getItem('customerQuestions')) || [];
+                const newQ = { name: form.querySelector('input[type="text"]').value, email: form.querySelector('input[type="email"]').value, question: form.querySelector('textarea').value };
+                questions.push(newQ); localStorage.setItem('customerQuestions', JSON.stringify(questions));
+                alert("Question Sent! We will email you shortly."); closeModal(modalId); form.reset(); btn.innerText = txt; btn.disabled = false; return; 
+            }
+
+            let msg = "Success!";
+            if(modalId === 'signupModal') { const user = { name: form.name.value, email: form.email.value, mobile: form.mobile.value, address: form.address.value }; localStorage.setItem('currentUser', JSON.stringify(user)); loginSuccess(); } 
+            else if(modalId === 'loginModal') { if(!localStorage.getItem('currentUser')) { localStorage.setItem('currentUser', JSON.stringify({name:'Demo', email:form.email.value, mobile:'0000000000', address:'123 Lane'})); } loginSuccess(); }
+            
+            alert(msg); closeModal(modalId); e.target.reset(); btn.innerText = txt; btn.disabled = false;
+        }
+
+        function loginSuccess() {
+            document.getElementById('auth-btn').classList.add('hidden');
+            document.getElementById('user-profile').classList.remove('hidden');
+            document.getElementById('cart-btn').classList.remove('hidden');
+            document.getElementById('nav-custom-btn').classList.remove('hidden');
+            document.getElementById('body-custom-box').classList.remove('hidden');
+            document.getElementById('write-review-btn').classList.remove('hidden');
+        }
+
+        // --- UPDATED PRODUCT RENDERER (Uses Admin Data) ---
+        function renderProducts() {
+            const grid = document.getElementById('main-product-grid');
+            let products = JSON.parse(localStorage.getItem('siteProducts'));
+            
+            if (!products || products.length === 0) {
+                products = [
+                    {name: "Mr. Froggy", price: 299, image: "https://images.unsplash.com/photo-1606293926075-69a00ce75815?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Best Seller", desc: "A friendly green frog made with premium cotton yarn."},
+                    {name: "Honey Bear", price: 349, image: "https://images.unsplash.com/photo-1596914565751-6e3e144a991f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "New", desc: "Sweet little bear with a red scarf."},
+                    {name: "Bumble Bee", price: 249, image: "https://images.unsplash.com/photo-1632207191633-29a3026d1d91?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", tag: "Limited", desc: "Buzzing with cuteness! Features sparkly wings."}
+                ];
+                localStorage.setItem('siteProducts', JSON.stringify(products));
+            }
+
+            grid.innerHTML = "";
+            products.forEach(p => {
+                // Ensure quotes don't break string params
+                const description = p.desc ? p.desc.replace(/'/g, "\\'") : "Handmade with love.";
+                const tagName = p.tag || "Handmade";
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.image}" class="card-img" onclick="openProductDetail('${p.name}', ${p.price}, '${p.image}', '${description}')">
+                        <div class="card-info">
+                            <span class="card-tag">${tagName}</span>
+                            <h3 class="card-title">${p.name}</h3>
+                            <p class="card-price">₹${p.price}</p>
+                            <button class="btn-buy" onclick="addToCart('${p.name}', ${p.price}, '${p.image}', 1)">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- UPDATED FAQ RENDERER (Uses Admin Data) ---
+        function renderFAQs() {
+            const container = document.querySelector('.faq-container');
+            let faqs = JSON.parse(localStorage.getItem('siteFAQs'));
+            
+            if (!faqs || faqs.length === 0) {
+                faqs = [
+                    {q: "How long does shipping take?", a: "We ship all orders within 24 hours! Standard delivery takes 3-5 business days."},
+                    {q: "Do you take custom orders?", a: "Yes! Login to your account and click 'Request Custom'. There is a ₹100 design fee."},
+                    {q: "What material do you use?", a: "We use 100% premium cotton yarn which is soft, durable, and eco-friendly."}
+                ];
+                localStorage.setItem('siteFAQs', JSON.stringify(faqs));
+            }
+
+            const ctaHTML = `<div class="faq-cta" style="text-align: center; margin-top: 30px;"><p>Have more questions?</p><button class="btn-ask" onclick="openModal('questionModal')">Ask a Question</button></div>`;
+            
+            let html = "";
+            faqs.forEach(faq => {
+                html += `
+                    <div class="faq-item">
+                        <div class="faq-question">${faq.q} <span class="faq-toggle">+</span></div>
+                        <div class="faq-answer"><p>${faq.a}</p></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html + ctaHTML;
+
+            // Re-attach listeners
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(q => {
+                q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
+            });
+        }
+
+        renderProducts();
+        renderFAQs();
+        renderCart();
+    </script>
+</body>
+</html>
